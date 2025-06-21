@@ -1,6 +1,7 @@
 name: Run JMeter Test Nightly
 
 on:
+  workflow_dispatch:     # מאפשר הרצה ידנית דרך כפתור
   schedule:
     - cron: '0 22 * * *'  # רץ כל לילה ב־01:00 שעון ישראל (22:00 UTC)
 
