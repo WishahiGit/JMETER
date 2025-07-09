@@ -1,32 +1,32 @@
-name: Run JMeter Test Nightly
+# name: Run JMeter Test Nightly
 
-on:
-  schedule:
-    - cron: '0 22 * * *'  # רץ כל לילה ב־01:00 שעון ישראל (22:00 UTC)
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: '0 22 * * *'  # רץ כל לילה ב־01:00 שעון ישראל (22:00 UTC)
+#   workflow_dispatch:
 
-jobs:
-  run-jmeter:
-    runs-on: ubuntu-latest
+# jobs:
+#   run-jmeter:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-      - name: Install JMeter
-        run: |
-          sudo apt update
-          sudo apt install -y openjdk-11-jdk wget
-          wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz
-          tar -xzf apache-jmeter-5.6.3.tgz
+#       - name: Install JMeter
+#         run: |
+#           sudo apt update
+#           sudo apt install -y openjdk-11-jdk wget
+#           wget https://downloads.apache.org/jmeter/binaries/apache-jmeter-5.6.3.tgz
+#           tar -xzf apache-jmeter-5.6.3.tgz
 
-      - name: Install JMeter Plugins Manager and Plugins
-        run: |
-          wget https://jmeter-plugins.org/get/ -O jmeter-plugins-manager.jar
-          mv jmeter-plugins-manager.jar apache-jmeter-5.6.3/lib/ext/
-          java -cp apache-jmeter-5.6.3/lib/ext/jmeter-plugins-manager.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
-          apache-jmeter-5.6.3/bin/PluginsManagerCMD.sh install jp@gc-corrected-results
+#       - name: Install JMeter Plugins Manager and Plugins
+#         run: |
+#           wget https://jmeter-plugins.org/get/ -O jmeter-plugins-manager.jar
+#           mv jmeter-plugins-manager.jar apache-jmeter-5.6.3/lib/ext/
+#           java -cp apache-jmeter-5.6.3/lib/ext/jmeter-plugins-manager.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
+#           apache-jmeter-5.6.3/bin/PluginsManagerCMD.sh install jp@gc-corrected-results
 
-      - name: Run JMeter test
-        run: |
-          apache-jmeter-5.6.3/bin/jmeter -n -t JMETER1.jmx -l result.jtl
+#       - name: Run JMeter test
+#         run: |
+#           apache-jmeter-5.6.3/bin/jmeter -n -t JMETER1.jmx -l result.jtl
